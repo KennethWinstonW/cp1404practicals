@@ -19,7 +19,7 @@ def main2():
 
 def determine_grade(score):
     """This function will help determine the grade based on the score."""
-    if score < MINIMUM_SCORE and score > MAXIMUM_SCORE:
+    if score < MINIMUM_SCORE or score > MAXIMUM_SCORE:
         return "Invalid score"
     elif score >= 90:
         return "Excellent"
