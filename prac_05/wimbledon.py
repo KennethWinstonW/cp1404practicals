@@ -1,4 +1,4 @@
-FILENAME = "wimbledon.csv"
+FILE_NAME = "wimbledon.csv"
 INDEX_COUNTRY = 1
 INDEX_CHAMPION = 2
 
