@@ -2,42 +2,45 @@ FILENAME = "wimbledon.csv"
 INDEX_COUNTRY = 1
 INDEX_CHAMPION = 2
 
+
 def main():
-    records = get_records(FILENAME)
-    champion_to_count, countries = process_records(records)
-    display_results(champion_to_count, countries)
+    """Function to retrieve data, process it, and display results."""
+    data = retrieve_data(FILE_NAME)
+    champion_stats, participating_countries = process_data(data)
+    show_results(champion_stats, participating_countries)
 
 
-def process_records(records):
-    """Create dictionary of champions and set of countries from records (list of lists)."""
-    champion_to_count = {}
-    countries = set()
-    for record in records:
-        countries.add(record[INDEX_COUNTRY])
+def process_data(data):
+    """Create a dictionary of champions and set of countries from data (list of lists)."""
+    champion_stats = {}
+    participating_countries = set()
+    for record in data:
+        participating_countries.add(record[INDEX_COUNTRY])
         try:
-            champion_to_count[record[INDEX_CHAMPION]] += 1
+            champion_stats[record[INDEX_CHAMPION]] += 1
         except KeyError:
-            champion_to_count[record[INDEX_CHAMPION]] = 1
-    return champion_to_count, countries
+            champion_stats[record[INDEX_CHAMPION]] = 1
+    return champion_stats, participating_countries
 
 
-def display_results(champion_to_count, countries):
+def show_results(champion_stats, participating_countries):
+    """ Display the Wimbledon champions and participating countries."""
     print("Wimbledon Champions: ")
-    for name, count in champion_to_count.items():
+    for name, count in champion_stats.items():
         print(name, count)
-    print(f"\nThese {len(countries)} countries have won Wimbledon: ")
-    print(", ".join(country for country in sorted(countries)))
+    print(f"\nThese {len(participating_countries)} countries have won Wimbledon: ")
+    print(", ".join(country for country in sorted(participating_countries)))
 
 
-def get_records(filename):
-    """Get records from file in list of lists form."""
-    records = []
-    with open(filename, "r", encoding="utf-8-sig") as in_file:
+def retrieve_data(file_name):
+    """Get data from the file in list of lists form."""
+    data = []
+    with open(file_name, "r", encoding="utf-8-sig") as in_file:
         in_file.readline()  # Remove header
         for line in in_file:
             parts = line.strip().split(",")
-            records.append(parts)
-    return records
+            data.append(parts)
+    return data
 
 
 main()
